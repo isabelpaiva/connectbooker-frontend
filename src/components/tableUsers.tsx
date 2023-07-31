@@ -1,41 +1,57 @@
 import { DataGrid, GridCellParams, GridColDef } from '@mui/x-data-grid'
+import axios from 'axios'
+import Dashboard from '@/app/dashboard/page'
+
+const storedToken = localStorage.getItem('@TOKEN')
+const token = storedToken ?? 'null'
 
 const handleEdit = (id: number | string) => {
   console.log('Editar usuário com ID:', id)
 }
 
-const handleRemove = (id: number | string) => {
-  console.log('Remover usuário com ID:', id)
+function handleDeleteContato(contactId: string) {
+  axios
+    .delete(`http://localhost:3000/schedule/${contactId}`, {
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+    })
+    .then(() => {
+      console.log('Contato deletado com sucesso!')
+    })
+    .catch((error) => {
+      console.error('Erro ao deletar contato:', error)
+    })
 }
 
 const columns: GridColDef[] = [
   { field: 'id', headerName: 'ID', width: 70 },
-  { field: 'name', headerName: 'Nome do contato', width: 250 },
-  { field: 'email', headerName: 'Email do contato', width: 250 },
-  { field: 'phone', headerName: 'Telefone do contato', width: 200 },
+  { field: 'name', headerName: 'Name', width: 250 },
+  { field: 'email', headerName: 'Email', width: 250 },
+  { field: 'phone', headerName: 'Phone', width: 200 },
   {
-    field: 'editar',
-    headerName: 'Editar',
+    field: 'Edit',
+    headerName: 'Edit',
     width: 100,
     renderCell: (params: GridCellParams) => (
       <button
         className="bg-yellow-400 w-[100%]"
         onClick={() => handleEdit(params.row.id)}
       >
-        Editar
+        Edit
       </button>
     ),
   },
   {
-    field: 'remover',
-    headerName: 'Remover',
+    field: 'Remove',
+    headerName: 'Remove',
     width: 100,
     renderCell: (params: GridCellParams) => (
       <button
         className="bg-red-400 w-[100%]"
-        onClick={() => handleRemove(params.row.id)}
+        onClick={() => handleDeleteContato(params.row.id)}
       >
-        Excluir
+        Remove
       </button>
     ),
   },
@@ -48,11 +64,18 @@ interface IUser {
   id: string
 }
 
-export default function DataTable({ users }: { users: IUser[] }) {
+interface DataTableProps {
+  users: IUser[]
+  handleContactDelete: () => void
+}
+
+export default function DataTable({ users }: DataTableProps) {
   return (
     <div style={{ height: 400, width: '100%' }}>
       {users.length === 0 ? (
-        <h1>Sem contatos</h1>
+        <h1 className="block text-sm font-medium leading-6 text-gray-900">
+          You haven't created any contacts yet :(
+        </h1>
       ) : (
         <DataGrid rows={users} columns={columns} checkboxSelection />
       )}

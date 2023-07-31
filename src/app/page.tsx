@@ -109,7 +109,7 @@ export default function Home() {
               href="/register"
               className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500"
             >
-              Start a 14 day free trial
+              Create Account
             </a>
           </p>
         </div>

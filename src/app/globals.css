@@ -18,7 +18,6 @@
 
 body {
   color: rgb(var(--foreground-rgb));
-  background: aliceblue
-    )
+  background-color:aliceblue
     rgb(var(--background-start-rgb));
 }
