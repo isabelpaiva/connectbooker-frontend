@@ -5,19 +5,12 @@ import Dashboard from '@/app/dashboard/page'
 const storedToken = localStorage.getItem('@TOKEN')
 const token = storedToken ?? 'null'
 
-const handleEdit = (id: number | string) => {
-  console.log('Editar usuário com ID:', id)
-}
-
 function handleDeleteContato(contactId: string) {
   axios
     .delete(`http://localhost:3000/schedule/${contactId}`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
-    })
-    .then(() => {
-      console.log('Contato deletado com sucesso!')
     })
     .catch((error) => {
       console.error('Erro ao deletar contato:', error)
@@ -34,12 +27,7 @@ const columns: GridColDef[] = [
     headerName: 'Edit',
     width: 100,
     renderCell: (params: GridCellParams) => (
-      <button
-        className="bg-yellow-400 w-[100%]"
-        onClick={() => handleEdit(params.row.id)}
-      >
-        Edit
-      </button>
+      <button className="bg-yellow-400 w-[100%]">Edit</button>
     ),
   },
   {

@@ -18,7 +18,6 @@ export default function Home() {
         password,
         phone,
       })
-      console.log(response)
       if (response) {
         router.push('/')
       }

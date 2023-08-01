@@ -54,7 +54,6 @@ export default function Dashboard() {
   }
 
   function handleCadastro() {
-    console.log(name, email, phone)
     axios
       .post(
         `http://localhost:3000/schedule/${decode!.sub}`,
