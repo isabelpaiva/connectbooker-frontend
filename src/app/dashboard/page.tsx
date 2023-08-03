@@ -77,6 +77,10 @@ export default function Dashboard() {
     users()
   }, [])
 
+  function handleDeleteCallback() {
+    users()
+  }
+
   return (
     <>
       <Modal
@@ -326,7 +330,10 @@ export default function Dashboard() {
         </header>
         <main>
           <div className="mx-auto max-w-7xl py-6 sm:px-6 lg:px-8">
-            <DataTable users={contacts}/>
+            <DataTable
+              users={contacts}
+              handleContactDelete={handleDeleteCallback}
+            />
           </div>
         </main>
       </div>
