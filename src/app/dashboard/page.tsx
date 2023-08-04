@@ -333,6 +333,7 @@ export default function Dashboard() {
             <DataTable
               users={contacts}
               handleContactDelete={handleDeleteCallback}
+              setUsers={setContacts}
             />
           </div>
         </main>
